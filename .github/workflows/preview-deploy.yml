@@ -5,7 +5,7 @@ on:
 env:
   ENV_NAME: preview
 jobs:
-  build:
+  preview-build:
     runs-on: "ubuntu-latest"
     permissions:
       contents: write

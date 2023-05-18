@@ -3,7 +3,7 @@ on:
     types: [closed]
 
 jobs:
-  build:
+  preview-clean-up:
     runs-on: "ubuntu-latest"
     permissions:
       contents: write
