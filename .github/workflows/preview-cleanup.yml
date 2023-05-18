@@ -3,7 +3,7 @@ on:
     types: [closed]
 
 jobs:
-  build:
+  preview-clean-up:
     runs-on: "ubuntu-latest"
     permissions:
       contents: write
@@ -20,4 +20,5 @@ jobs:
       - name: Set up Node environment
         run: |
           echo ${_BRANCH_NAME_SHA}
+          echo ${{ github.ref }}
           cat ${_BRANCH_NAME_SHA}/.latest
