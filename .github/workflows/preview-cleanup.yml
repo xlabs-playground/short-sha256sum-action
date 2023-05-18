@@ -16,9 +16,9 @@ jobs:
       - name: Compute Version
         id: version
         run: |
-          echo "_BRANCH_NAME_SHA=$(echo ${{ github.ref }} | sha256sum | cut -c -10)" >> "${GITHUB_ENV}"
+          echo "_BRANCH_NAME_SHA=$(echo ${{ github.event.pull_request.head.ref }} | sha256sum | cut -c -10)" >> "${GITHUB_ENV}"
       - name: Set up Node environment
         run: |
           echo ${_BRANCH_NAME_SHA}
-          echo ${{ github.ref }}
+          echo ${{ github.event.pull_request.head.ref }}
           cat ${_BRANCH_NAME_SHA}/.latest
