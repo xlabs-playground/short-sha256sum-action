@@ -37,9 +37,12 @@ jobs:
           ref: preview
           path: preview
       - name: Deploy
+        run: node --print 'require("./package.json").version' >> preview/.artifacts
+      - name: Setup Git
         run: |
-          node --print 'require("./package.json").version' >> preview/.artifacts
           pushd preview
+          git config user.name "xLabs Playground CI"
+          git config user.email "devops@xlabs-playground.xyz"
           git add .artifacts
           git commit -m"Update preview artifacts"
           git push
