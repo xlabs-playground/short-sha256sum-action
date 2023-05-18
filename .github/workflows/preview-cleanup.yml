@@ -20,4 +20,5 @@ jobs:
       - name: Set up Node environment
         run: |
           echo ${_BRANCH_NAME_SHA}
+          echo ${{ github.ref }}
           cat ${_BRANCH_NAME_SHA}/.latest
