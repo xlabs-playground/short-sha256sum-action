@@ -20,8 +20,8 @@ jobs:
           registry-url: https://npm.pkg.github.com
       - name: Setup Git
         run: |
-          git config user.name "xLabs Playground CI"
-          git config user.email "devops@xlabs-playground.xyz"
+          git config --global user.name "xLabs Playground CI"
+          git config --global user.email "devops@xlabs-playground.xyz"
       - name: Install dependencies
         run: npm ci
       - name: Compute Version
@@ -29,6 +29,7 @@ jobs:
         run: |
           npm version prerelease --preid $(echo ${{ github.sha }} | cut -c -10)
           echo "_PKG_VERSION=$(node -p -e "require('./package.json').version")" >> "${GITHUB_ENV}"
+          echo "_BRANCH_NAME_SHA=$(echo ${{ github.ref }} | sha256sum | cut -c -10)" >> "${GITHUB_ENV}"
       - name: Build and Publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -36,17 +37,19 @@ jobs:
         run: |
           npm run build
           npm publish
-      - name: Checkout ${ENV_NAME} branch
+      - name: Checkout preview branch
         uses: actions/checkout@v3
         with:
-          ref: ${{ env.ENV_NAME }}
-          path: ${{ env.ENV_NAME }}
-      - name: Trigger a ${ENV_NAME} Deploy 
+          ref: preview
+          path: preview
+      - name: Trigger a preview Deploy 
         run: |
-          pushd ${ENV_NAME}
-          echo ${_PKG_VERSION} >> .artifacts
-          git config user.name "xLabs Playground CI"
-          git config user.email "devops@xlabs-playground.xyz"
-          git add .artifacts
-          git commit -m"Update ${ENV_NAME} artifacts"
+          mkdir -p preview/${_BRANCH_NAME_SHA}
+          pushd preview/${_BRANCH_NAME_SHA}
+          [[ ! -f .latest ]] && touch .latest
+          [[ ! -f .artifacts ]] && touch .artifacts
+          cat .latest >> .artifacts
+          echo ${_PKG_VERSION} > .latest
+          git add .artifacts .latest
+          git commit -m"Update preview artifacts"
           git push
