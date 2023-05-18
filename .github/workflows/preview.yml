@@ -12,14 +12,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        run: |
-          git config user.name xLabs Playground CI
-          git config user.email devops+playground@xlabs.xyz
+
       - name: Set up Node environment
         uses: actions/setup-node@v3
         with:
           node-version: v16.19.1
           registry-url: https://npm.pkg.github.com
+      - name: Setup Git
+        run: |
+          git config user.name xLabs Playground CI
+          git config user.email devops+playground@xlabs.xyz
       - name: Build and Publish
         run: |
           npm version prerelease --preid $(echo ${{ github.sha }} | cut -c -10)
