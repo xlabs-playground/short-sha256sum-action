@@ -31,3 +31,15 @@ jobs:
         run: |
           npm version prerelease --preid $(echo ${{ github.sha }} | cut -c -10)
           npm publish
+      - name: Checkout preview branch
+        uses: actions/checkout@v3
+        with:
+          ref: preview
+          path: preview
+      - name: Deploy
+        run: |
+          node --print 'require("./package.json").version' >> preview/.artifacts
+          pushd preview
+          git add .artifacts
+          git commit -m"Update preview artifacts"
+          git push
