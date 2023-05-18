@@ -15,4 +15,4 @@ jobs:
         with:
           ref: 'preview'
       - name: Set up Node environment
-        run: echo .artifacts
+        run: cat .artifacts
