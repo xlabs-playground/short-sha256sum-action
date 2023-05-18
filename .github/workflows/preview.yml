@@ -36,16 +36,15 @@ jobs:
         run: |
           npm run build
           npm publish
-      - name: Checkout preview branch
+      - name: Checkout ${ENV_NAME} branch
         uses: actions/checkout@v3
         with:
-          ref: ${ENV_NAME}
-          path: ${ENV_NAME}
-      - name: Deploy
-        run: echo ${_PKG_VERSION} >> ${ENV_NAME}/.artifacts
-      - name: Setup Git
+          ref: ${{ env.ENV_NAME }}
+          path: ${{ env.ENV_NAME }}
+      - name: Trigger a ${ENV_NAME} Deploy 
         run: |
           pushd ${ENV_NAME}
+          echo ${_PKG_VERSION} >> .artifacts
           git config user.name "xLabs Playground CI"
           git config user.email "devops@xlabs-playground.xyz"
           git add .artifacts
