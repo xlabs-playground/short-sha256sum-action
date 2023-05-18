@@ -18,6 +18,6 @@ jobs:
           node-version: v16.19.1
           registry-url: https://npm.pkg.github.com
       - name: Build and Publish
-        run: 
-          - npm version prerelease --preid ${{ github.sha }}
-          - npm publish --dry-run
+        run: |
+          npm version prerelease --preid ${{ github.sha }}
+          npm publish --dry-run
