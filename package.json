@@ -1,4 +1,7 @@
 {
     "name": "@xlabs-playground/short-sha256sum-action",
-    "version": "0.0.2"
+    "version": "0.0.2",
+    "scripts": {
+        "build": "echo building..."
+    }
 }
