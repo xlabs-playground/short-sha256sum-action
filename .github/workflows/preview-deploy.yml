@@ -44,8 +44,6 @@ jobs:
           path: preview
       - name: Trigger a preview Deploy 
         run: |
-#          git config --global user.name "xLabs Playground CI"
-#          git config --global user.email "devops@xlabs-playground.xyz"
           mkdir -p preview/${_BRANCH_NAME_SHA}
           pushd preview/${_BRANCH_NAME_SHA}
           [[ ! -f .latest ]] && touch .latest
