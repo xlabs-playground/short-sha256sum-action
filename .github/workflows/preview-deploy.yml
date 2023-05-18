@@ -48,7 +48,9 @@ jobs:
           git config user.email "devops@xlabs-playground.xyz"
           mkdir -p preview/${_BRANCH_NAME_SHA}
           pushd preview/${_BRANCH_NAME_SHA}
-          [[ ! -f .latest ]] || cat .latest >> .artifacts
+          [[ ! -f .latest ]] && touch .latest
+          [[ ! -f .artifacts ]] && touch .artifacts
+          cat .latest >> .artifacts
           echo ${_PKG_VERSION} > .latest
           git add .artifacts .latest
           git commit -m"Update preview artifacts"
