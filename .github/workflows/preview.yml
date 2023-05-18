@@ -9,6 +9,9 @@ on:
 jobs:
   prettier:
     runs-on: "ubuntu-latest"
+    permissions:
+      contents: read
+      packages: write
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
@@ -25,4 +28,4 @@ jobs:
       - name: Build and Publish
         run: |
           npm version prerelease --preid $(echo ${{ github.sha }} | cut -c -10)
-          npm publish --dry-run
+          npm publish

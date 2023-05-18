@@ -1,4 +1,4 @@
 {
-    "name": "short-sha256-sum",
-    "version": "0.0.0"
+    "name": "@xlabs-playground/short-sha256-sum",
+    "version": "0.0.1"
 }
