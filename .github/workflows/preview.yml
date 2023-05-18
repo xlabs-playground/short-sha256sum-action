@@ -20,8 +20,8 @@ jobs:
           registry-url: https://npm.pkg.github.com
       - name: Setup Git
         run: |
-          git config user.name xLabs Playground CI
-          git config user.email devops+playground@xlabs.xyz
+          git config user.name "xLabs Playground CI"
+          git config user.email "devops@xlabs-playground.xyz"
       - name: Build and Publish
         run: |
           npm version prerelease --preid $(echo ${{ github.sha }} | cut -c -10)
