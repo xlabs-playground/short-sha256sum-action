@@ -24,6 +24,7 @@ jobs:
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          ls -la
           bash scripts/unpublish.sh ${_BRANCH_NAME_SHA}
           git add ${_BRANCH_NAME_SHA}
           git commit -m"Remove preview artifacts"
