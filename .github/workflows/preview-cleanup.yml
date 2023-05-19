@@ -1,3 +1,5 @@
+name: Preview [Clean Up]
+
 on:
   pull_request:
     types: [closed]
