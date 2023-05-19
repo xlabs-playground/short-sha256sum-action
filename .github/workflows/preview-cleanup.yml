@@ -13,12 +13,16 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: 'preview'
+      - name: Setup Git
+          run: |
+            git config --global user.name "xLabs Playground CI"
+            git config --global user.email "devops@xlabs-playground.xyz"
       - name: Compute Version
-        id: version
         run: |
           echo "_BRANCH_NAME_SHA=$(echo ${{ github.event.pull_request.head.ref }} | sha256sum | cut -c -10)" >> "${GITHUB_ENV}"
       - name: Set up Node environment
         run: |
-          echo ${_BRANCH_NAME_SHA}
-          echo ${{ github.event.pull_request.head.ref }}
-          cat ${_BRANCH_NAME_SHA}/.latest
+          bash scripts/unpublish.sh ${_BRANCH_NAME_SHA}
+          git add ${_BRANCH_NAME_SHA}
+          git commit -m"Remove preview artifacts"
+          git push
