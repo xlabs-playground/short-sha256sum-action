@@ -26,8 +26,6 @@ jobs:
         env:
           GITHUB_NPM_REGISTRY_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          ls -la
-          cat .npmrc
           bash scripts/unpublish.sh ${_BRANCH_NAME_SHA}
           git add ${_BRANCH_NAME_SHA}
           git commit -m"Remove preview artifacts"
